@@ -45,8 +45,8 @@ private:
     static void maxHeapify(vector<T> theHeap, int root){
         
         // we need to know both the the children of the new root to determine if the heap needs to be 'heapified'
-        int leftChild = leftChildIndex(root);
-        int rightChild = rightChildIndex(root);
+        unsigned long int leftChild = leftChildIndex(root);
+        unsigned long int rightChild = rightChildIndex(root);
         int largerIndex;
         
         // if the left child is greater than the root we will check the left side of the binary max heap and adjust it accordingly
@@ -90,12 +90,7 @@ public:
     PriorityQueue(){}
     
     PriorityQueue(T *arr, int arrSize){
-        
-        for(int i=0; i <arrSize; i++){
-            theHeap.push_back(arr[i]);
-        }
-        
-        maxHeapify(theHeap, arr[arrSize-1]);
+        theHeap(arr,sizeof(arr)/sizeof(arr[0]));
     }
     
     void pop(){
