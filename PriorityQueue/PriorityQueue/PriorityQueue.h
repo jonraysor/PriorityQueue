@@ -8,6 +8,7 @@
 
 #ifndef PriorityQueue_h
 #define PriorityQueue_h
+#include "EmptyException.h"
 #include <vector>
 
 using namespace std;
@@ -16,6 +17,7 @@ template <class T>
 class PriorityQueue{
     
 private:
+
     vector<T> theHeap;
     
     static T parent;
@@ -85,22 +87,45 @@ private:
 public:
     
     PriorityQueue(){
+        parent = 0;
+        leftChild = 0;
+        rightChild = 0;
+    }
+    
+    PriorityQueue(T *arr, int arrSize){
         
+        for(int i=0; i <arrSize; i++)
+            theHeap.push(arr[i]);
     }
     
     void pop(){
-        // first we swap the top of the binary max heap with the bottom
-        // this is done because we want to delete 'top' element on the heap
         
-        // we could use pop_front, but that would not run in constant time (hence why there's no pop_front() function
-        // stl vector)
-        swap(theHeap, 0, theHeap.size()-1);
+        if (empty()){
+            string error = "THE priorityQueue IS EMPTY";
+            EmptyException errorToBeThrown(error);
+            throw errorToBeThrown;
+        }
+        
+        // first we check to see if the heap has more than one element
+        // this matters because we cannot swap one element with itself (segmentation fault)
+        if (theHeap.size()>1)
+            
+            // if the above condition is met
+            // then we swap the top of the binary max heap with the bottom
+            // this is done because we want to delete 'top' element on the heap
+            // we could use pop_front, but that would not run in constant time (hence why there's no pop_front() function
+            // stl vector)
+            swap(theHeap, 0, theHeap.size()-1);
+        
         
         // pop_back() to delete that element that we placed at the back
+        // this will always happen no matter what as long as theHeap isnt empty()
         theHeap.pop_back();
         
-        // maxHeapify() is called to 'reorganize' the binary max heap to make it legal
-        maxHeapify(theHeap, 0);
+        // if only one element is in the priorityQueue we have no reason to call maxHeapify() seeing there's 0 or 1 elements in the priorityQueue and if there's one that is the greatest
+        if (theHeap.size()<1)
+            // maxHeapify() is called to 'reorganize' the binary max heap to make it legal
+            maxHeapify(theHeap, 0);
     }
     
     void push(const T newIndex){
@@ -110,20 +135,34 @@ public:
         // after adding the new element we'll need to make sure that the Binary Max heap follows all the rules
         // for instance if the new element is greater than all other elements in the Binary Max Heap it will need to make it's way to the top and the bubbleUp() function will be able to corrent the heap
         
-        // in contrast, if the element is the minimum of the binary max heap the function bubbleUp() will return instantly after it's first test becuase the new element is not greater than it's parent
-        bubbleUp(theHeap,theHeap.size()-1);
+        // we'll check to see if the heap is empty. If it is there's no need for us to bubbleUp() because there;s only one element and that is the gratest in the vector
+        if (theHeap.size()>1)
+            // in contrast, if the element is the minimum of the binary max heap the function bubbleUp() will return instantly after it's first test becuase the new element is not greater than it's parent
+            bubbleUp(theHeap,theHeap.size()-1);
     }
     
     T top(){
+        if (empty()){
+            string error = "THE priorityQueue IS EMPTY";
+            EmptyException errorToBeThrown(error);
+            throw errorToBeThrown;
+        }
+
         return theHeap[0];
     }
     
     const int size(){
+        if (empty()){
+        string error = "THE priorityQueue IS EMPTY";
+        EmptyException errorToBeThrown(error);
+        throw errorToBeThrown;
+    }
+
         return theHeap.size();
     }
     
     const bool empty(){
-        return theHeap.empty();
+        return empty();
     }
     
 };

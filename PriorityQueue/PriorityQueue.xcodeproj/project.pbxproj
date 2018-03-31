@@ -25,7 +25,8 @@
 /* Begin PBXFileReference section */
 		AB786165206C85A400A2356C /* PriorityQueue */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PriorityQueue; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB786168206C85A400A2356C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		AB78616F206C85E500A2356C /* PriorityQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriorityQueue.h; sourceTree = "<group>"; };
+		AB78616F206C85E500A2356C /* PriorityQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriorityQueue.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		AB859FAD206F431E00594EC8 /* EmptyException.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmptyException.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +61,7 @@
 			children = (
 				AB786168206C85A400A2356C /* main.cpp */,
 				AB78616F206C85E500A2356C /* PriorityQueue.h */,
+				AB859FAD206F431E00594EC8 /* EmptyException.h */,
 			);
 			path = PriorityQueue;
 			sourceTree = "<group>";
