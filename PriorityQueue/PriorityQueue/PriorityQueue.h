@@ -10,6 +10,7 @@
 #define PriorityQueue_h
 #include "EmptyException.h"
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -24,17 +25,17 @@ private:
     static T leftChild;
     static T rightChild;
     
-    static int leftChildIndex(int parentIndex){
+    static unsigned long int leftChildIndex(unsigned long int parentIndex){
         // the right child of the parent in the vector is 2 times it's index and to the right by 1 element
         return (parentIndex*2)+1;
     }
     
-    static int rightChildIndex(int parentIndex){
+    static unsigned long int rightChildIndex(unsigned long int parentIndex){
         // the left child of the parent in the vector is 2 times it's index and to the right by 2 elements
         return (parentIndex*2)+2;
     }
     
-    static int parentIndex(int ChildIndex){
+    static unsigned long int parentIndex(unsigned long int ChildIndex){
         // the left child is always to the left one and half of that
         // C++ rounds down (using the floor)
         return (ChildIndex-1)/2;
@@ -49,33 +50,33 @@ private:
         int largerIndex;
         
         // if the left child is greater than the root we will check the left side of the binary max heap and adjust it accordingly
-        if(leftChild < theHeap.size() && theHeap[left] < theHeap[root])
+        if(leftChild < theHeap.size() && theHeap[leftChild] < theHeap[root])
             largerIndex = leftChild;
         
         // if the left child is greater than the root we will check the left side of the binary max heap and adjust it accordingly
-        if(rightChild < theHeap.size() && theHeap[right] < theHeap[root])
+        if(rightChild < theHeap.size() && theHeap[rightChild] < theHeap[root])
             largerIndex = rightChild;
         
         // if one of the conditions above was met we need to swap the parent with the larger index (one of the children that's greater)
         if (largerIndex != root){
-            swap(theHeap, root, largerIndex);
+            swap(root, largerIndex);
             
             // since this is recursive we'll make our 'recursive' call
             maxHeapify(theHeap, root);
         }
     }
-    static void bubbleUp(vector<T> theHeap, int newIndex){
+    static void bubbleUp(vector<T> theHeap, unsigned long int newIndex){
         
         // we need to know the parent of the new element that we're pushing onto the vector
         // this needs to be known because we must compare the new element with it's parent to see if it needs to be bubbled up.
-        int parent = parentIndex(newIndex);
+       unsigned long int parent = parentIndex(newIndex);
         
         // we need to make sure while the index is not at the front of the vector (theHeap[0])
         // and the new element is greater than it's parent that it continues to bubble up to it's proper spot to maintain a legal binary max heap
         
-        while(newIndex > 0 && theHeap[newIndex] > theHeap(parent)){
+        while(newIndex > 0 && theHeap[newIndex] > theHeap[parent]){
             // if the above conditions are met we will swap the new element with it's parent
-            swap(theHeap,newIndex,parent);
+            swap(newIndex,parent);
             // then we'll have to change the new elements index to be where the parent was (bubble it up)
             newIndex = parent;
             // then change the parent to continue through our loop checking for a legal binary max heap
@@ -86,16 +87,15 @@ private:
     
 public:
     
-    PriorityQueue(){
-        parent = 0;
-        leftChild = 0;
-        rightChild = 0;
-    }
+    PriorityQueue(){}
     
     PriorityQueue(T *arr, int arrSize){
         
-        for(int i=0; i <arrSize; i++)
-            theHeap.push(arr[i]);
+        for(int i=0; i <arrSize; i++){
+            theHeap.push_back(arr[i]);
+        }
+        
+        maxHeapify(theHeap, arr[arrSize-1]);
     }
     
     void pop(){
@@ -128,9 +128,9 @@ public:
             maxHeapify(theHeap, 0);
     }
     
-    void push(const T newIndex){
+    void push(const T newElem){
         // first we'll add the new element to the vector
-        theHeap.push_back(newIndex);
+        theHeap.push_back(newElem);
         
         // after adding the new element we'll need to make sure that the Binary Max heap follows all the rules
         // for instance if the new element is greater than all other elements in the Binary Max Heap it will need to make it's way to the top and the bubbleUp() function will be able to corrent the heap
@@ -162,7 +162,7 @@ public:
     }
     
     const bool empty(){
-        return empty();
+        return theHeap.empty();
     }
     
 };

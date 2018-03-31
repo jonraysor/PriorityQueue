@@ -9,7 +9,22 @@
 #include <iostream>
 #include "PriorityQueue.h"
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    return 0;
+  
+    
+    PriorityQueue<int> numbersTest;
+
+    for(int i=1928; i !=0; i--){
+        numbersTest.push(i);
+    }
+    
+    int numbersTest2 [10];
+    
+    for(int i=0; i <10; i++){
+        numbersTest2[i]=i;
+    }
+    
+    PriorityQueue<int> numbers2(numbersTest2, 10);
+    
+    cout << numbers2.top() << endl;
+    cout << numbersTest.top() << endl;
 }
