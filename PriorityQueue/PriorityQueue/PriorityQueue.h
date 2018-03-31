@@ -84,6 +84,10 @@ private:
     
 public:
     
+    PriorityQueue(){
+        
+    }
+    
     void pop(){
         // first we swap the top of the binary max heap with the bottom
         // this is done because we want to delete 'top' element on the heap
