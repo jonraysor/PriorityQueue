@@ -49,7 +49,7 @@ private:
         // we need to know both the the children of the new root to determine if the heap needs to be 'heapified'
         unsigned long int leftChild = leftChildIndex(root);
         unsigned long int rightChild = rightChildIndex(root);
-        unsigned long int largerIndex;
+        unsigned long int largerIndex = NULL;
         
         // if the left child is greater than the root we will check the left side of the binary max heap and adjust it accordingly
         if(leftChild < theHeap.size() && theHeap[leftChild] < theHeap[root])
