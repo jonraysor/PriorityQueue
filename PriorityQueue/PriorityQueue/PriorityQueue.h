@@ -21,9 +21,9 @@ private:
 
     vector<T> theHeap;
     
-    static T parent;
-    static T leftChild;
-    static T rightChild;
+    static int parent;
+    static int leftChild;
+    static int rightChild;
     
     static unsigned long int leftChildIndex(unsigned long int parentIndex){
         // the right child of the parent in the vector is 2 times it's index and to the right by 1 element
@@ -89,8 +89,13 @@ public:
     
     PriorityQueue(){}
     
-    PriorityQueue(T *arr, int arrSize){
-        theHeap(arr,sizeof(arr)/sizeof(arr[0]));
+    // This constructor allows the user to initialize a priority queue with an array
+    // member intialization is used to initialize the underlying vector with the given array
+    PriorityQueue(T* arr, int n): theHeap(arr, arr+n) {
+        // then we use the maxHeapify() to make the binary max heap legal
+        // starting from (n-1)/2 which is the parent of the last element (start from the bottom of the tree)
+        for(int i=(n-1)/2; i>=0; i--)
+            maxHeapify(theHeap, i);
     }
     
     void pop(){
