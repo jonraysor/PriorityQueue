@@ -18,7 +18,9 @@ template <class T>
 class PriorityQueue{
     
 private:
-
+    
+    // This priority_queue may only be used on types which have a < operator
+    // Until comparators are introduced to the class
     vector<T> theHeap;
     
     static int parent;
@@ -42,12 +44,12 @@ private:
     }
     
     
-    static void maxHeapify(vector<T> theHeap, int root){
+    static void maxHeapify(vector<T> theHeap, unsigned long int root){
         
         // we need to know both the the children of the new root to determine if the heap needs to be 'heapified'
         unsigned long int leftChild = leftChildIndex(root);
         unsigned long int rightChild = rightChildIndex(root);
-        int largerIndex;
+        unsigned long int largerIndex;
         
         // if the left child is greater than the root we will check the left side of the binary max heap and adjust it accordingly
         if(leftChild < theHeap.size() && theHeap[leftChild] < theHeap[root])
