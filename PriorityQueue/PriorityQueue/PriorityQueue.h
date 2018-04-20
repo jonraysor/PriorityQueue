@@ -29,12 +29,12 @@ private:
     
     static unsigned long int leftChildIndex(unsigned long int parentIndex){
         // the right child of the parent in the vector is 2 times it's index and to the right by 1 element
-        return (parentIndex*2)+1;
+        return parentIndex*2+1;
     }
     
     static unsigned long int rightChildIndex(unsigned long int parentIndex){
         // the left child of the parent in the vector is 2 times it's index and to the right by 2 elements
-        return (parentIndex*2)+2;
+        return parentIndex*2+2;
     }
     
     static unsigned long int parentIndex(unsigned long int ChildIndex){
@@ -52,12 +52,16 @@ private:
         unsigned long int largerIndex = NULL;
         
         // if the left child is greater than the root we will check the left side of the binary max heap and adjust it accordingly
-        if(leftChild < theHeap.size() && theHeap[leftChild] < theHeap[root])
+        if(leftChild < theHeap.size() && theHeap[leftChild] > theHeap[root])
             largerIndex = leftChild;
         
-        // if the left child is greater than the root we will check the left side of the binary max heap and adjust it accordingly
-        if(rightChild < theHeap.size() && theHeap[rightChild] < theHeap[root])
+        // if the right child is greater than the root we will check the left side of the binary max heap and adjust it accordingly
+        if(rightChild < theHeap.size() && theHeap[rightChild] > theHeap[root])
             largerIndex = rightChild;
+        
+        // if the larger index has no left child that means there's no other elements in the heap therefor the largerIndex is the root itself
+        else
+            largerIndex = root;
         
         // if one of the conditions above was met we need to swap the parent with the larger index (one of the children that's greater)
         if (largerIndex != root){
